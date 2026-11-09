@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriGATE — Smallholders Farm Management System</title>
+    <meta name="description" content="A comprehensive mobile and backend platform for Value Chain Management (VCM) and Sustainable Community Livelihoods (SCL) decision-making in smallholder farming operations across Nigeria.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --clr-primary: #065F46;
+            --clr-primary-light: #ECFDF5;
+            --clr-primary-dark: #064E3B;
+            --clr-accent: #10B981;
+            --clr-gold: #D97706;
+            --clr-gold-light: #FFFBEB;
+            --clr-blue: #2563EB;
+            --clr-blue-light: #EFF6FF;
+            --clr-purple: #7C3AED;
+            --clr-purple-light: #F5F3FF;
+            --clr-red: #DC2626;
+            --clr-red-light: #FEF2F2;
+            --clr-bg: #F8FAFC;
+            --clr-surface: #FFFFFF;
+            --clr-text: #1E293B;
+            --clr-text-muted: #64748B;
+            --clr-border: #E2E8F0;
+            --radius: 16px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--clr-bg);
+            color: var(--clr-text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #064E3B 0%, #065F46 30%, #047857 60%, #059669 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: 80px 0 100px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(217,119,6,0.1) 0%, transparent 70%);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 32px;
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 54px;
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            max-width: 700px;
+        }
+
+        .hero p {
+            font-size: 17px;
+            opacity: 0.85;
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 36px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: left;
+        }
+
+        .hero-stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 13px;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--clr-primary);
+            background: var(--clr-primary-light);
+            padding: 6px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 36px;
+            color: var(--clr-text);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--clr-text-muted);
+            max-width: 640px;
+            margin-bottom: 48px;
+        }
+
+        /* Cards Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius);
+            padding: 28px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--clr-text);
+        }
+
+        .feature-card p {
+            font-size: 13.5px;
+            color: var(--clr-text-muted);
+            line-height: 1.7;
+        }
+
+        /* VCM & SCL Section */
+        .vcm-scl-section {
+            background: linear-gradient(180deg, #F0FDF4 0%, #F8FAFC 100%);
+        }
+
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .pillar-card {
+            background: var(--clr-surface);
+            border-radius: var(--radius);
+            padding: 36px;
+            border: 1px solid var(--clr-border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pillar-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .pillar-card .pillar-sub {
+            font-size: 14px;
+            color: var(--clr-text-muted);
+            margin-bottom: 20px;
+        }
+
+        .pillar-list {
+            list-style: none;
+        }
+
+        .pillar-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 0;
+            font-size: 14px;
+            color: var(--clr-text);
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .pillar-list li:last-child {
+            border-bottom: none;
+        }
+
+        .pillar-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Architecture Section */
+        .arch-section {
+            background: #0F172A;
+            color: white;
+        }
+
+        .arch-section .section-label {
+            background: rgba(16,185,129,0.15);
+            color: #34D399;
+        }
+
+        .arch-section .section-title {
+            color: white;
+        }
+
+        .arch-section .section-subtitle {
+            color: #94A3B8;
+        }
+
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .arch-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius);
+            padding: 28px;
+        }
+
+        .arch-card h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #E2E8F0;
+        }
+
+        .arch-card p {
+            font-size: 13px;
+            color: #94A3B8;
+            line-height: 1.7;
+        }
+
+        .arch-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 14px;
+        }
+
+        /* Integration Section */
+        .integration-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 36px;
+        }
+
+        .integration-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--clr-text);
+            transition: transform 0.15s;
+        }
+
+        .integration-badge:hover {
+            transform: scale(1.05);
+        }
+
+        /* Screens Table */
+        .screens-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--clr-border);
+            background: var(--clr-surface);
+        }
+
+        .screens-table thead th {
+            background: #F8FAFC;
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--clr-text-muted);
+            border-bottom: 1px solid var(--clr-border);
+        }
+
+        .screens-table tbody td {
+            padding: 14px 20px;
+            font-size: 14px;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .screens-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .screens-table tbody tr:hover {
+            background: #F8FAFC;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Decision Matrix */
+        .decision-section {
+            background: linear-gradient(180deg, #FFFBEB 0%, #F8FAFC 100%);
+        }
+
+        .decision-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .decision-card {
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius);
+            padding: 28px;
+            border-left: 4px solid;
+        }
+
+        .decision-card h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .decision-card p {
+            font-size: 13px;
+            color: var(--clr-text-muted);
+            line-height: 1.7;
+        }
+
+        .decision-role {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0F172A;
+            color: #94A3B8;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        footer h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        footer p {
+            font-size: 14px;
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: #34D399;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-copy {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero-stats { gap: 24px; }
+            .hero-stat-value { font-size: 28px; }
+            .pillar-grid, .arch-grid, .decision-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            section { padding: 48px 0; }
+            .section-title { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<header class="hero">
+    <div class="container">
+        <div class="hero-badge">🌱 Agriculture Technology Platform</div>
+        <h1>Smallholders Farm Management System</h1>
+        <p>
+            An end-to-end mobile and backend platform empowering field agents and project managers to manage
+            smallholder farmers, make data-driven VCM & SCL decisions, and drive sustainable agricultural outcomes 
+            across Nigeria.
+        </p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-value">53+</span>
+                <span class="hero-stat-label">Application Screens</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">VCM</span>
+                <span class="hero-stat-label">Value Chain Management</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">SCL</span>
+                <span class="hero-stat-label">Sustainable Community Livelihoods</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">SMS</span>
+                <span class="hero-stat-label">Termii Integration</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ════════════════════ FEATURES ════════════════════ -->
+<section>
+    <div class="container">
+        <div class="section-label">📱 Core Features</div>
+        <h2 class="section-title">What the Application Can Do</h2>
+        <p class="section-subtitle">
+            A comprehensive suite of tools designed for field agents to manage their entire farming operation workflow — 
+            from farmer registration to harvest logging and beyond.
+        </p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#ECFDF5; color:#059669;">👨‍🌾</div>
+                <h3>Farmer Onboarding & Registration</h3>
+                <p>Multi-step registration wizard capturing farmer biometrics, demographics, NIN verification, household data, and livelihood indicators. Supports GPS-tagged farm boundary mapping with vertex plotting.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#EFF6FF; color:#2563EB;">🗺️</div>
+                <h3>Farm & Field Management</h3>
+                <p>Create, view and manage farms with subplots. GeoJSON boundary mapping, centroid tracking, soil type analysis, and cropping system assignment. Each field links to activities, assessments and harvest logs.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#F5F3FF; color:#7C3AED;">📋</div>
+                <h3>Task Management & Scheduling</h3>
+                <p>Complete task lifecycle — create, assign, track, and close tasks. Overdue detection, due date filtering (today/tomorrow/overdue), and category-based grouping (fertilization, pest control, monitoring, etc.).</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#FFFBEB; color:#D97706;">📊</div>
+                <h3>Season Tracker & Cropping Calendar</h3>
+                <p>Visual timeline showing planting season progress by state. Automatically merges cropping system templates with real-time activity data. Displays week-by-week Gantt-style activity calendars.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#FEF2F2; color:#DC2626;">📞</div>
+                <h3>Auto Call Sequencer</h3>
+                <p>Sequential dialer that queues and auto-dials farmers one by one. 5-second countdown before each call, outcome logging (Connected / Busy / No Answer), and call notes for verification details.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#ECFDF5; color:#065F46;">🧭</div>
+                <h3>Route Optimizer & Navigation</h3>
+                <p>Interactive SVG map displaying farmer locations with optimized visit routes. Deep-links to Google Maps for turn-by-turn navigation from agent's current GPS position to each farmer stop.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#EFF6FF; color:#2563EB;">👥</div>
+                <h3>MTG Groups & Meetings</h3>
+                <p>Create and manage Mutual Trust Groups. Add/remove farmers, schedule meetings with SMS notifications via Termii, track attendance, and manage group training sessions and funding rounds.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#FFFBEB; color:#D97706;">💰</div>
+                <h3>MTG Funding & VSLA</h3>
+                <p>Village Savings & Loan Association tracking — record member contributions, input finance rounds, calculate balances, and generate review summaries for cooperative savings programs.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#F5F3FF; color:#7C3AED;">📝</div>
+                <h3>Activity Logging & Validation</h3>
+                <p>Log farming activities with geo-tagged photos, GPS timestamps, and agent notes. Activities flow through validation pipelines — awaiting validation, validated, or rejected.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#ECFDF5; color:#059669;">🌾</div>
+                <h3>Farm Assessment & Scoring</h3>
+                <p>Structured assessment forms with VCM Scorecard integration. Evaluate farm health, compliance, regenerative practices adoption, and generate actionable recommendations.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#FEF2F2; color:#DC2626;">📲</div>
+                <h3>SMS Notifications (Termii)</h3>
+                <p>Bulk SMS broadcasting to farmers via Termii API. Personalized templates with dynamic fields ({name}, {group}, {time}, {location}). Used for meeting reminders, task alerts, and announcements.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#EFF6FF; color:#2563EB;">🌍</div>
+                <h3>Multi-Language Support</h3>
+                <p>Internationalization (i18n) with translations for Hausa, Yoruba, Igbo, and English. Agents can switch languages dynamically. All UI labels, alerts, and system messages are translatable.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════ VCM & SCL ════════════════════ -->
+<section class="vcm-scl-section">
+    <div class="container">
+        <div class="section-label">🎯 Strategic Framework</div>
+        <h2 class="section-title">How It Supports VCM & SCL Decision-Making</h2>
+        <p class="section-subtitle">
+            The platform is purpose-built to support two critical frameworks in smallholder agriculture development:
+            Value Chain Management and Sustainable Community Livelihoods.
+        </p>
+
+        <div class="pillar-grid">
+            <div class="pillar-card">
+                <h3>🔗 Value Chain Management (VCM)</h3>
+                <p class="pillar-sub">End-to-end visibility from input sourcing through production, processing, and market access.</p>
+                <ul class="pillar-list">
+                    <li>
+                        <span class="pillar-check" style="background:#ECFDF5; color:#059669;">✓</span>
+                        <span><strong>Input Tracking:</strong> Records fertilizer, seed, and agrochemical usage per farm and subplot. Tracks input finance credits and repayment status.</span>
+                    </li>
+                    <li>
+                        <span class="pillar-check" style="background:#ECFDF5; color:#059669;">✓</span>
+                        <span><strong>Production Monitoring:</strong> Cropping calendar aligns activities to expected timelines. Season tracker flags deviations. Activity logs capture real-time field operations.</span>
+                    </li>
+                    <li>
+                        <span class="pillar-check" style="background:#ECFDF5; color:#059669;">✓</span>
+                        <span><strong>Quality Assurance:</strong> VCM Scorecards rate farm compliance. Assessment forms evaluate soil health, GAP (Good Agricultural Practices), and regenerative farming adoption.</span>
+                    </li>
+                    <li>
+                        <span class="pillar-check" style="background:#ECFDF5; color:#059669;">✓</span>
+                        <span><strong>Harvest & Yield:</strong> Harvest logs record yield data, enabling yield-per-hectare analysis. Farm reports compare performance across agents, regions, and seasons.</span>
+                    </li>
+                    <li>
+                        <span class="pillar-check" style="background:#ECFDF5; color:#059669;">✓</span>
+                        <span><strong>Agent Performance:</strong> Dashboard KPIs track farm visits completed, activities logged, assessments done, and harvest logs recorded — measuring agent effectiveness in the value chain.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="pillar-card">
+                <h3>🏘️ Sustainable Community Livelihoods (SCL)</h3>
+                <p class="pillar-sub">Community-level interventions that improve food security, financial inclusion, and resilience.</p>
+                <ul class="pillar-list">
+                    <li>
+                        <span class="pillar-check" style="background:#EFF6FF; color:#2563EB;">✓</span>
+                        <span><strong>Food Security Data:</strong> Farmer registration captures meal frequency, food shortage months, and water sources — directly informing SCL food security assessments.</span>
+                    </li>
+                    <li>
+                        <span class="pillar-check" style="background:#EFF6FF; color:#2563EB;">✓</span>
+                        <span><strong>VSLA & Financial Inclusion:</strong> MTG funding modules track village savings, loan disbursements, and contribution cycles — key SCL indicators for financial empowerment.</span>
+                    </li>
+                    <li>
+                        <span class="pillar-check" style="background:#EFF6FF; color:#2563EB;">✓</span>
+                        <span><strong>Household Profiling:</strong> Captures household size, dependants, schooling children, education level, and livelihood diversity (livestock, poultry, aquaculture) for vulnerability scoring.</span>
+                    </li>
+                    <li>
+                        <span class="pillar-check" style="background:#EFF6FF; color:#2563EB;">✓</span>
+                        <span><strong>Community Safety:</strong> Security threat levels and conflict exposure data collected during registration inform community resilience planning and intervention targeting.</span>
+                    </li>
+                    <li>
+                        <span class="pillar-check" style="background:#EFF6FF; color:#2563EB;">✓</span>
+                        <span><strong>Group Strengthening:</strong> MTG management, training sessions, and meeting attendance tracking build social capital. SMS notifications ensure community engagement and participation.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════ DECISION SUPPORT ════════════════════ -->
+<section class="decision-section">
+    <div class="container">
+        <div class="section-label">🧠 Decision Intelligence</div>
+        <h2 class="section-title">Data-Driven Decision Support</h2>
+        <p class="section-subtitle">
+            Every data point collected flows into actionable insights for agents, project managers, and program directors.
+        </p>
+
+        <div class="decision-grid">
+            <div class="decision-card" style="border-left-color: var(--clr-primary);">
+                <div class="decision-role" style="background:var(--clr-primary-light); color:var(--clr-primary);">Field Agent</div>
+                <h4>Prioritize Daily Visits</h4>
+                <p>The "Needs Visit" queue with route optimization tells agents exactly which farms to visit, in what order, and provides Google Maps navigation — eliminating guesswork.</p>
+            </div>
+            <div class="decision-card" style="border-left-color: var(--clr-blue);">
+                <div class="decision-role" style="background:var(--clr-blue-light); color:var(--clr-blue);">Field Agent</div>
+                <h4>Auto-Call Sequencing</h4>
+                <p>The sequential auto-dialer reduces call-making friction. Outcome logging (connected/busy/no answer) creates call analytics that reveal farmer reachability patterns.</p>
+            </div>
+            <div class="decision-card" style="border-left-color: var(--clr-gold);">
+                <div class="decision-role" style="background:var(--clr-gold-light); color:var(--clr-gold);">Project Manager</div>
+                <h4>Season Progress Monitoring</h4>
+                <p>The cropping calendar + season tracker provides real-time visibility into which farming stages are on schedule, delayed, or skipped — enabling proactive intervention.</p>
+            </div>
+            <div class="decision-card" style="border-left-color: var(--clr-purple);">
+                <div class="decision-role" style="background:var(--clr-purple-light); color:var(--clr-purple);">Project Manager</div>
+                <h4>Input Finance Risk Assessment</h4>
+                <p>MTG contribution data + farm assessment scores help identify which farmers are high-risk for input credit defaults vs. which are likely to repay — informing lending decisions.</p>
+            </div>
+            <div class="decision-card" style="border-left-color: var(--clr-red);">
+                <div class="decision-role" style="background:var(--clr-red-light); color:var(--clr-red);">Program Director</div>
+                <h4>Vulnerability Targeting</h4>
+                <p>Household profiling data (food shortage months, water sources, security threats) surfaces which communities need the most support — aligning SCL interventions with actual need.</p>
+            </div>
+            <div class="decision-card" style="border-left-color: var(--clr-accent);">
+                <div class="decision-role" style="background:var(--clr-primary-light); color:var(--clr-accent);">Program Director</div>
+                <h4>Impact Measurement</h4>
+                <p>Yield data, farm visit frequency, activity completion rates, and VSLA savings growth — all tracked over time — provide the metrics needed for donor reporting and program evaluation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════ ARCHITECTURE ════════════════════ -->
+<section class="arch-section">
+    <div class="container">
+        <div class="section-label">⚙️ Technical Architecture</div>
+        <h2 class="section-title">System Architecture & Stack</h2>
+        <p class="section-subtitle">
+            Built on modern, production-grade technologies with offline-first capabilities for rural connectivity challenges.
+        </p>
+
+        <div class="arch-grid">
+            <div class="arch-card">
+                <div class="arch-tag" style="background:rgba(16,185,129,0.15); color:#34D399;">Mobile App</div>
+                <h4>React Native + Expo</h4>
+                <p>Cross-platform iOS/Android app built with Expo Router (file-based routing), React Query for server state, AsyncStorage for offline caching, and NativeWind for styling.</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-tag" style="background:rgba(96,165,250,0.15); color:#60A5FA;">Backend API</div>
+                <h4>Node.js + Express + PostgreSQL</h4>
+                <p>RESTful API with JWT authentication, role-based access control, Drizzle ORM, and structured feature-based architecture. Deployed on Render with managed PostgreSQL.</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-tag" style="background:rgba(251,191,36,0.15); color:#FBBF24;">Notifications</div>
+                <h4>Termii SMS Gateway</h4>
+                <p>Integrated Termii API for bulk SMS delivery to Nigerian phone numbers. Automatic 0→234 normalization. Personalized message templates with dynamic field substitution.</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-tag" style="background:rgba(167,139,250,0.15); color:#A78BFA;">Admin Panel</div>
+                <h4>Next.js Web Dashboard</h4>
+                <p>Administrative web interface for project managers. Manage projects, view farmer registrations, review reports, and configure cropping system templates.</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-tag" style="background:rgba(248,113,113,0.15); color:#F87171;">Authentication</div>
+                <h4>JWT + Demo Mode</h4>
+                <p>Dual-mode auth: production JWT tokens with refresh rotation, plus a fully-functional offline demo mode for training and presentation purposes.</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-tag" style="background:rgba(52,211,153,0.15); color:#34D399;">Maps & GPS</div>
+                <h4>Google Maps + GeoJSON</h4>
+                <p>GPS coordinate capture for farm boundaries, centroid calculation, GeoJSON polygon storage, and Google Maps deep-linking for agent field navigation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════ SCREENS TABLE ════════════════════ -->
+<section>
+    <div class="container">
+        <div class="section-label">📱 Application Screens</div>
+        <h2 class="section-title">Complete Screen Inventory</h2>
+        <p class="section-subtitle">
+            Over 53 screens covering every aspect of the smallholder management workflow.
+        </p>
+
+        <table class="screens-table">
+            <thead>
+                <tr>
+                    <th>Screen</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Agent Dashboard</strong></td>
+                    <td><span class="tag" style="background:#ECFDF5; color:#059669;">Core</span></td>
+                    <td>Overview with KPI cards, task summaries, quick actions, and season progress indicators</td>
+                </tr>
+                <tr>
+                    <td><strong>Farmer Registration</strong></td>
+                    <td><span class="tag" style="background:#EFF6FF; color:#2563EB;">Onboarding</span></td>
+                    <td>10-step wizard: Personal info → Household → Farm → Livestock → Mapping → Review</td>
+                </tr>
+                <tr>
+                    <td><strong>Farmer Profile</strong></td>
+                    <td><span class="tag" style="background:#ECFDF5; color:#059669;">Core</span></td>
+                    <td>Complete farmer view with overview stats, farms, tasks, activity timeline, and notes</td>
+                </tr>
+                <tr>
+                    <td><strong>Farmers List</strong></td>
+                    <td><span class="tag" style="background:#ECFDF5; color:#059669;">Core</span></td>
+                    <td>Searchable/filterable list of all assigned farmers with status indicators</td>
+                </tr>
+                <tr>
+                    <td><strong>Farm Details</strong></td>
+                    <td><span class="tag" style="background:#ECFDF5; color:#059669;">Core</span></td>
+                    <td>Farm-level view with subplots, boundary maps, activities, and assessment history</td>
+                </tr>
+                <tr>
+                    <td><strong>Tasks Board</strong></td>
+                    <td><span class="tag" style="background:#F5F3FF; color:#7C3AED;">Workflow</span></td>
+                    <td>Task management with status filters, category badges, and due date tracking</td>
+                </tr>
+                <tr>
+                    <td><strong>Needs Visit Queue</strong></td>
+                    <td><span class="tag" style="background:#FEF2F2; color:#DC2626;">Scheduling</span></td>
+                    <td>Farm visit queue with route optimizer, SVG map, and Google Maps navigation</td>
+                </tr>
+                <tr>
+                    <td><strong>Needs Call Queue</strong></td>
+                    <td><span class="tag" style="background:#FEF2F2; color:#DC2626;">Scheduling</span></td>
+                    <td>Call queue with auto-dialer sequencer, outcome logging, and progress tracking</td>
+                </tr>
+                <tr>
+                    <td><strong>MTG Groups</strong></td>
+                    <td><span class="tag" style="background:#FFFBEB; color:#D97706;">Community</span></td>
+                    <td>Mutual Trust Group management with member lists and group statistics</td>
+                </tr>
+                <tr>
+                    <td><strong>MTG Details & Meetings</strong></td>
+                    <td><span class="tag" style="background:#FFFBEB; color:#D97706;">Community</span></td>
+                    <td>Group details, meeting scheduling with SMS invites, and attendance tracking</td>
+                </tr>
+                <tr>
+                    <td><strong>MTG Funding & VSLA</strong></td>
+                    <td><span class="tag" style="background:#FFFBEB; color:#D97706;">Community</span></td>
+                    <td>Savings tracking, contribution rounds, input finance, and funding summaries</td>
+                </tr>
+                <tr>
+                    <td><strong>Activity Logger</strong></td>
+                    <td><span class="tag" style="background:#F5F3FF; color:#7C3AED;">Workflow</span></td>
+                    <td>Log farming activities with photos, GPS, timestamps, and validation status</td>
+                </tr>
+                <tr>
+                    <td><strong>Reports & Season Tracker</strong></td>
+                    <td><span class="tag" style="background:#EFF6FF; color:#2563EB;">Analytics</span></td>
+                    <td>Farm reports, visit statistics, and visual cropping season calendars</td>
+                </tr>
+                <tr>
+                    <td><strong>Settings & Profile</strong></td>
+                    <td><span class="tag" style="background:#F1F5F9; color:#64748B;">System</span></td>
+                    <td>Theme toggle, language switching, notifications, security, and account management</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="integration-strip">
+            <div class="integration-badge">🔗 Termii SMS API</div>
+            <div class="integration-badge">🗺️ Google Maps</div>
+            <div class="integration-badge">📍 GPS/GeoJSON</div>
+            <div class="integration-badge">🔐 JWT Auth</div>
+            <div class="integration-badge">🐘 PostgreSQL</div>
+            <div class="integration-badge">⚛️ React Native</div>
+            <div class="integration-badge">🚀 Expo Router</div>
+            <div class="integration-badge">📦 React Query</div>
+            <div class="integration-badge">🌐 i18n (4 languages)</div>
+            <div class="integration-badge">☁️ Render Hosting</div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer>
+    <div class="container">
+        <h3>Smallholders Farm Management System</h3>
+        <p>Built to empower field agents and transform smallholder agriculture with data-driven decision making.</p>
+        <div class="footer-links">
+            <a class="footer-link" href="https://github.com/trorvahq-tech/SMALLHOLDERS-FARM-MANAGEMENT-MOBILE-APPLICATION" target="_blank">📱 Mobile App Repo</a>
+            <a class="footer-link" href="https://github.com/trorvahq-tech/smallholders-farmers-backend-system" target="_blank">⚙️ Backend API Repo</a>
+            <a class="footer-link" href="https://github.com/zibby-zibs/farmville-admin" target="_blank">🖥️ Admin Dashboard Repo</a>
+        </div>
+        <p class="footer-copy">© 2026 TrorvahQ Tech · AgriGATE Platform · All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

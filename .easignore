@@ -1,0 +1,8 @@
+# Ignore non-build assets and heavy documents
+aggr/
+dist/
+scratch/
+*.pdf
+.vscode/
+.expo/
+node_modules/
